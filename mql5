@@ -1,0 +1,124 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                                  Successful.mq5 |
+//|                      Copyright 2021, Forex Robot Easy Team       |
+//|                                                forexroboteasy.com|
+//+------------------------------------------------------------------+
+#property copyright 'Copyright 2021, Forex Robot Easy Team'
+#property link      'forexroboteasy.com'
+#property version   '1.00'
+#property strict
+
+#include <Trade\Trade.mqh>
+
+// Define constants
+#define TAKE_PROFIT 100
+#define STOP_LOSS   50
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Initialize trade execution
+   if (!Trade.Init())
+   {
+      Print('Failed to initialize trade execution!');
+      return INIT_FAILED;
+   }
+
+   return INIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Deinitialize trade execution
+   Trade.Deinit();
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Perform market trend analysis using historical data
+   double trend = AnalyzeMarketTrend();
+
+   // Generate trading signals based on the proprietary strategy
+   int signal = GenerateTradingSignal(trend);
+
+   // Execute trades automatically based on the generated signals
+   ExecuteTrades(signal);
+}
+
+//+------------------------------------------------------------------+
+//| Analyze market trend using historical data                        |
+//+------------------------------------------------------------------+
+double AnalyzeMarketTrend()
+{
+   // Perform market trend analysis using historical data
+   // and return the calculated trend value
+   double trend = 0.5; // Placeholder value, replace with actual analysis
+
+   return trend;
+}
+
+//+------------------------------------------------------------------+
+//| Generate trading signals based on the proprietary strategy        |
+//+------------------------------------------------------------------+
+int GenerateTradingSignal(const double trend)
+{
+   // Generate trading signal based on the proprietary strategy
+   // and return the signal value
+   int signal = 1; // Placeholder value, replace with actual signal generation
+
+   return signal;
+}
+
+//+------------------------------------------------------------------+
+//| Execute trades automatically based on the generated signals      |
+//+------------------------------------------------------------------+
+void ExecuteTrades(const int signal)
+{
+   // Check if a trade execution is allowed
+   if (Trade.IsTradeAllowed())
+   {
+      // Open a position based on the generated signal
+      if (signal == 1)
+      {
+         Trade.Buy(0.1, Symbol(), 0, 0, STOP_LOSS, TAKE_PROFIT);
+      }
+      else if (signal == -1)
+      {
+         Trade.Sell(0.1, Symbol(), 0, 0, STOP_LOSS, TAKE_PROFIT);
+      }
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Expert start function                                            |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+   // Real-time monitoring of trades and performance analysis
+   MonitorTrades();
+}
+
+//+------------------------------------------------------------------+
+//| Real-time monitoring of trades and performance analysis          |
+//+------------------------------------------------------------------+
+void MonitorTrades()
+{
+   // Monitor trades and perform performance analysis
+   while (!IsStopped())
+   {
+      // Perform real-time monitoring and analysis
+      // and take necessary actions
+
+      // Sleep for a while before the next check
+      Sleep(1000);
+   }
+}
